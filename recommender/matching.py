@@ -28,7 +28,7 @@ def get_top_matches(proposal_text, project_data, top_n=10, scivoc_weight=0.5):
     # word_embedding_model = models.Transformer(model_name)
     # pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
     # model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
-    model = SentenceTransformer("models/all-MiniLM-L6-v2")
+    model = SentenceTransformer('models/all-MiniLM-L6-v2', local_files_only=True)
     
     # Load project encodings
     project_embeddings = np.load("models/project_embeddings.npy")
