@@ -1,6 +1,7 @@
 import numpy as np
 import pickle
-from sentence_transformers import SentenceTransformer, models
+# from sentence_transformers import SentenceTransformer, models
+from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 
@@ -23,11 +24,12 @@ def get_top_matches(proposal_text, project_data, top_n=10, scivoc_weight=0.5):
     with open("models/embedding_model_name.txt", "r") as f:
         model_name = f.read().strip()
     
-    # Manually configure sentence-transformers
-    word_embedding_model = models.Transformer(model_name)
-    pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
-    model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
-    
+    # # Manually configure sentence-transformers
+    # word_embedding_model = models.Transformer(model_name)
+    # pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
+    # model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
+    model = SentenceTransformer("models/all-MiniLM-L6-v2", local_files_only=True)
+
     # Load project encodings
     project_embeddings = np.load("models/project_embeddings.npy")
     with open("models/project_ids.pkl", "rb") as f:
